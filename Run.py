@@ -8,7 +8,7 @@ try:
 except (ModuleNotFoundError) as e:
     __import__('sys').exit(f"[Error] {str(e).capitalize()}!")
 
-SUKSES, GAGAL, FOLLOWERS, STATUS, BAD, CHECKPOINT, FAILED, TRY = [], [], {
+SUCCESS, GAGAL, FOLLOWERS, STATUS, BAD, CHECKPOINT, FAILED, TRY = [], [], {
     "COUNT": 0
 }, [], [], [], [], []
 
@@ -18,7 +18,7 @@ class KIRIMKAN:
         pass
 
     def PENGIKUT(self, session, username, password, host, your_username):
-        global SUKSES, GAGAL, STATUS, FAILED, BAD, CHECKPOINT
+        global SUCCESS, GAGAL, STATUS, FAILED, BAD, CHECKPOINT
         session.headers.update({
             'Accept-Encoding': 'gzip, deflate',
             'Sec-Fetch-Mode': 'navigate',
@@ -76,48 +76,48 @@ class KIRIMKAN:
                     response4 = session.post('https://{}/tools/send-follower/{}?formType=send'.format(host, self.USER_ID), data = data)
                     self.JSON_RESPONSE4 = json.loads(response4.text)
                     if '\'status\': \'success\'' in str(self.JSON_RESPONSE4):
-                        SUKSES.append(f'{self.JSON_RESPONSE4}')
+                        SUCCESS.append(f'{self.JSON_RESPONSE4}')
                         STATUS.append(f'{self.JSON_RESPONSE4}')
                     elif '\'code\': \'nocreditleft\'' in str(self.JSON_RESPONSE4):
                         printf(f"[bold bright_black]   ──>[bold red] YOUR CREDITS HAVE RAN OUT!          ", end='\r')
-                        time.sleep(4.5)
+                        time.sleep(0.5)
                     elif '\'code\': \'nouserleft\'' in str(self.JSON_RESPONSE4):
                         printf(f"[bold bright_black]   ──>[bold red] NO USERS FOUND!                     ", end='\r')
-                        time.sleep(4.5)
+                        time.sleep(0.5)
                     elif 'istek engellendi.' in str(self.JSON_RESPONSE4):
                         TRY.append(f'{self.JSON_RESPONSE4}')
                         if len(TRY) >= 3:
                             TRY.clear()
                             printf(f"[bold bright_black]   ──>[bold red] REQUEST TO SEND FOLLOWERS BLOCKED!  ", end='\r')
-                            time.sleep(4.5)
+                            time.sleep(0.5)
                             return (False)
                         else:
                             self.PENGIKUT(session, username, password, host, your_username)
                     else:
                         GAGAL.append(f'{self.JSON_RESPONSE4}')
                         printf(f"[bold bright_black]   ──>[bold red] ERROR WHILE SENDING FOLLOWERS!      ", end='\r')
-                        time.sleep(4.5)
+                        time.sleep(0.5)
                     printf(f"[bold bright_black]   ──>[bold green] FINISH FROM {str(host).split('.')[0].upper()} SERVICE!           ", end='\r')
-                    time.sleep(5.0)
+                    time.sleep(0.5)
                     return (True)
                 else:
                     printf(f"[bold bright_black]   ──>[bold red] TARGET USERNAME NOT FOUND!           ", end='\r')
-                    time.sleep(4.5)
+                    time.sleep(0.5)
                     return (False)
             elif 'Güvenliksiz giriş tespit edildi.' in str(self.JSON_RESPONSE):
                 CHECKPOINT.append(f'{self.JSON_RESPONSE}')
                 printf(f"[bold bright_black]   ──>[bold red] YOUR ACCOUNT IS CHECKPOINT!          ", end='\r')
-                time.sleep(4.5)
+                time.sleep(0.5)
                 return (False)
             elif 'Üzgünüz, şifren yanlıştı.' in str(self.JSON_RESPONSE):
                 BAD.append(f'{self.JSON_RESPONSE}')
                 printf(f"[bold bright_black]   ──>[bold red] YOUR PASSWORD IS WRONG!              ", end='\r')
-                time.sleep(4.5)
+                time.sleep(0.5)
                 return (False)
             else:
                 FAILED.append(f'{self.JSON_RESPONSE}')
                 printf(f"[bold bright_black]   ──>[bold red] LOGIN ERROR!                          ", end='\r')
-                time.sleep(4.5)
+                time.sleep(0.5)
                 return (False)
         else:
             printf(f"[bold bright_black]   ──>[bold red] FORGERY TOKEN NOT FOUND!          ", end='\r')
@@ -163,14 +163,14 @@ class MAIN:
         global CHECKPOINT, BAD, FAILED
         try:
             self.LOGO()
-            printf(Panel(f"[bold white]Please fill in your Instagram account details such as username and password, use `[bold red]:[bold white]` as a\nseparator, you must also use a fake account to log in!", width=59, style="bold bright_black", title="[bold bright_black][Login Diperlukan]", subtitle="[bold bright_black]╭──────", subtitle_align="left"))
+            printf(Panel(f"[bold white]Please fill in your Instagram account details such as username and password, use `[bold red]:[bold white]` as a\nseparator, you must also use a fake account to log in!", width=59, style="bold bright_black", title="[bold bright_black][Login Fake Account]", subtitle="[bold bright_black]╭──────", subtitle_align="left"))
             self.ACCOUNTS = Console().input("[bold bright_black]   ╰─> ")
             if ':' in str(self.ACCOUNTS):
                 self.USERNAME, self.PASSWORD = self.ACCOUNTS.split(':')[0], self.ACCOUNTS.split(':')[1]
-                printf(Panel(f"[bold white]Please fill in your Instagram account username, make sure the account is not locked and the\nusername is correct. Example:[bold green] @rozhak_official", width=59, style="bold bright_black", title="[bold bright_black][Username]", subtitle="[bold bright_black]╭──────", subtitle_align="left"))
+                printf(Panel(f"[bold white]Please fill in your Instagram account username, make sure the account is not locked and the\nusername is correct. Example:[bold green] @rozhak_official", width=59, style="bold bright_black", title="[bold bright_black][Target's Username]", subtitle="[bold bright_black]╭──────", subtitle_align="left"))
                 self.YOUR_USERNAME = Console().input("[bold bright_black]   ╰─> ").replace('@', '')
                 if len(self.YOUR_USERNAME) != 0:
-                    printf(Panel(f"[bold white]While sending followers, you can use[bold yellow] CTRL + C[bold white] if stuck and[bold red] CTRL + Z[bold white] if you want to stop,\nif an error occurs check the service and account!", width=59, style="bold bright_black", title="[bold bright_black][Catatan]"))
+                    printf(Panel(f"[bold white]While sending followers, you can use[bold yellow] CTRL + C[bold white] if stuck and[bold red] CTRL + Z[bold white] if you want to stop,\nif an error occurs check the service and account!", width=59, style="bold bright_black", title="[bold bright_black][NOTE]"))
                     while (True):
                         try:
                             INFORMASI().PENGIKUT(your_username=self.YOUR_USERNAME, updated=True)
@@ -185,13 +185,13 @@ class MAIN:
                                     BAD.append(f'{HOST}')
                                     CHECKPOINT.append(f'{HOST}')
                                     printf(f"[bold bright_black]   ──>[bold red] UNABLE TO CONNECT TO {str(HOST).split('.')[0].upper()} SERVICE!          ", end='\r')
-                                    time.sleep(2.5)
+                                    time.sleep(0.5)
                                     continue
                             if len(CHECKPOINT) >= 5:
                                 printf(Panel(f"[bold red]Your Instagram account is hit by a checkpoint, please approve the login on another\ndevice, then try logging in again on this Program!", width=59, style="bold bright_black", title="[bold bright_black][Login Checkpoint]"))
                                 sys.exit()
                             elif len(BAD) >= 5:
-                                printf(Panel(f"[bold red]Your Instagram account password is incorrect, remember not all accounts can log in here,\nwe do not recommend newly created accounts!", width=59, style="bold bright_black", title="[bold bright_black][Login Gagal]"))
+                                printf(Panel(f"[bold red]Your Instagram account password is incorrect, remember not all accounts can log in here,\nwe do not recommend newly created accounts!", width=59, style="bold bright_black", title="[bold bright_black][Login Failed]"))
                                 sys.exit()
                             elif len(FAILED) >= 5:
                                 printf(Panel(f"[bold red]An unknown error occurred while logging in, maybe the service is under maintenance\nor there is a problem with your Instagram account!", width=59, style="bold bright_black", title="[bold bright_black][Login Error]"))
@@ -205,7 +205,7 @@ class MAIN:
                                         self.JUMLAH = ('null')
                                     printf(Panel(f"""[bold white]Status :[bold green] Successfully sending followers![/]
 [bold white]Link :[bold red] https://www.instagram.com/{str(self.YOUR_USERNAME)[:20]}
-[bold white]Jumlah :[bold yellow] {self.JUMLAH}""", width=59, style="bold bright_black", title="[bold bright_black][Sukses]"))
+[bold white]Jumlah :[bold yellow] {self.JUMLAH}""", width=59, style="bold bright_black", title="[bold bright_black][Success]"))
                                     self.DELAY(0, 600, self.YOUR_USERNAME)
                                     STATUS.clear()
                                     continue
@@ -214,21 +214,21 @@ class MAIN:
                                     continue
                         except (RequestException):
                             printf(f"[bold bright_black]   ──>[bold red] YOUR CONNECTION IS HAVING A PROBLEM!          ", end='\r')
-                            time.sleep(9.5)
+                            time.sleep(1.5)
                             continue
                         except (KeyboardInterrupt):
                             printf(f"                               ", end='\r')
-                            time.sleep(2.5)
+                            time.sleep(1.5)
                             continue
                         except (Exception) as e:
                             printf(f"[bold bright_black]   ──>[bold red] {str(e).upper()}!", end='\r')
-                            time.sleep(5.5)
+                            time.sleep(1.5)
                             continue
                 else:
-                    printf(Panel(f"[bold red]You entered the wrong Instagram username, please check the username again,\nalso make sure the account is not locked!", width=59, style="bold bright_black", title="[bold bright_black][Username Salah]"))
+                    printf(Panel(f"[bold red]You entered the wrong Instagram username, please check the username again,\nalso make sure the account is not locked!", width=59, style="bold bright_black", title="[bold bright_black][Username Error]"))
                     sys.exit()
             else:
-                printf(Panel(f"[bold red]You did not fill in the account data correctly, make sure the username and password\nseparator is a colon, please try again!", width=59, style="bold bright_black", title="[bold bright_black][Pemisah Salah]"))
+                printf(Panel(f"[bold red]You did not fill in the account data correctly, make sure the username and password\nseparator is a colon, please try again!", width=59, style="bold bright_black", title="[bold bright_black][Account Details Error]"))
                 sys.exit()
         except (Exception) as e:
             printf(Panel(f"[bold red]{str(e).capitalize()}!", width=59, style="bold bright_black", title="[bold bright_black][Error]"))
@@ -242,15 +242,15 @@ class MAIN:
   | | |  _ \ /___)  _)/ _  | || || |/ _ \ / || |/ _  |
  _| |_| | | |___ | |_( ( | | || || | |_| ( (_| ( ( | |
 [bold white](_____)_| |_(___/ \___)_||_|_||_||_|\___/ \____|\_||_|
-        [underline green]Free Instagram Followers - by Gueverro""", width=59, style="bold bright_black"))
+        [underline green]Instagram Followers Tool - [bold Light Blue]by Gueverro""", width=59, style="bold bright_black"))
         return (True)
 
     def DELAY(self, menit, detik, your_username):
         self.TOTAL = (menit * 60 + detik)
         while (self.TOTAL):
             MENIT, DETIK = divmod(self.TOTAL, 60)
-            printf(f"[bold bright_black]   ──>[bold green] @{str(your_username)[:20].upper()}[bold white]/[bold green]{MENIT:02d}:{DETIK:02d}[bold white] SUKSES:-[bold green]{len(SUKSES)}[bold white] GAGAL:-[bold red]{len(GAGAL)}     ", end='\r')
-            time.sleep(1)
+            printf(f"[bold bright_black]   ──>[bold green] @{str(your_username)[:20].upper()}[bold white]/[bold green]{MENIT:0.5d}:{DETIK:0.5d}[bold white] SUKSES:-[bold green]{len(SUCCESS)}[bold white] GAGAL:-[bold red]{len(GAGAL)}     ", end='\r')
+            time.sleep(.5)
             self.TOTAL -= 1
         return (True)
 
@@ -264,7 +264,7 @@ if __name__ == '__main__':
                     "Status": True
                 }))
             w.close()
-            time.sleep(2.5)
+            time.sleep(0.5)
         os.system('git pull')
         MAIN()
     except (Exception) as e:
