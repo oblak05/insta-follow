@@ -83,41 +83,41 @@ class KIRIMKAN:
                         time.sleep(0.5)
                     elif '\'code\': \'nouserleft\'' in str(self.JSON_RESPONSE4):
                         printf(f"[bold bright_black]   ──>[bold red] NO USERS FOUND!                     ", end='\r')
-                        time.sleep(0.5)
+                        time.sleep(5.5)
                     elif 'istek engellendi.' in str(self.JSON_RESPONSE4):
                         TRY.append(f'{self.JSON_RESPONSE4}')
                         if len(TRY) >= 3:
                             TRY.clear()
                             printf(f"[bold bright_black]   ──>[bold red] REQUEST TO SEND FOLLOWERS BLOCKED!  ", end='\r')
-                            time.sleep(0.5)
+                            time.sleep(5.5)
                             return (False)
                         else:
                             self.PENGIKUT(session, username, password, host, your_username)
                     else:
                         GAGAL.append(f'{self.JSON_RESPONSE4}')
                         printf(f"[bold bright_black]   ──>[bold red] ERROR WHILE SENDING FOLLOWERS!      ", end='\r')
-                        time.sleep(0.5)
+                        time.sleep(5.5)
                     printf(f"[bold bright_black]   ──>[bold green] FINISH FROM {str(host).split('.')[0].upper()} SERVICE!           ", end='\r')
-                    time.sleep(0.5)
+                    time.sleep(5.5)
                     return (True)
                 else:
                     printf(f"[bold bright_black]   ──>[bold red] TARGET USERNAME NOT FOUND!           ", end='\r')
-                    time.sleep(0.5)
+                    time.sleep(5.5)
                     return (False)
             elif 'Güvenliksiz giriş tespit edildi.' in str(self.JSON_RESPONSE):
                 CHECKPOINT.append(f'{self.JSON_RESPONSE}')
                 printf(f"[bold bright_black]   ──>[bold red] YOUR ACCOUNT IS CHECKPOINT!          ", end='\r')
-                time.sleep(0.5)
+                time.sleep(5.5)
                 return (False)
             elif 'Üzgünüz, şifren yanlıştı.' in str(self.JSON_RESPONSE):
                 BAD.append(f'{self.JSON_RESPONSE}')
                 printf(f"[bold bright_black]   ──>[bold red] YOUR PASSWORD IS WRONG!              ", end='\r')
-                time.sleep(0.5)
+                time.sleep(5.5)
                 return (False)
             else:
                 FAILED.append(f'{self.JSON_RESPONSE}')
                 printf(f"[bold bright_black]   ──>[bold red] LOGIN ERROR!                          ", end='\r')
-                time.sleep(0.5)
+                time.sleep(5.5)
                 return (False)
         else:
             printf(f"[bold bright_black]   ──>[bold red] FORGERY TOKEN NOT FOUND!          ", end='\r')
@@ -167,7 +167,7 @@ class MAIN:
             self.ACCOUNTS = Console().input("[bold bright_black]   ╰─> ")
             if ':' in str(self.ACCOUNTS):
                 self.USERNAME, self.PASSWORD = self.ACCOUNTS.split(':')[0], self.ACCOUNTS.split(':')[1]
-                printf(Panel(f"[bold white]Please fill in your Instagram account username, make sure the account is not locked and the\nusername is correct. Example:[bold green] @rozhak_official", width=59, style="bold bright_black", title="[bold bright_black][Target's Username]", subtitle="[bold bright_black]╭──────", subtitle_align="left"))
+                printf(Panel(f"[bold white]Please fill in your Instagram account username, make sure the account is not locked and the\nusername is correct. Example:[bold green] @Akhirro_qxzi”, width=59, style="bold bright_black", title="[bold bright_black][Target's Username]", subtitle="[bold bright_black]╭──────", subtitle_align="left"))
                 self.YOUR_USERNAME = Console().input("[bold bright_black]   ╰─> ").replace('@', '')
                 if len(self.YOUR_USERNAME) != 0:
                     printf(Panel(f"[bold white]While sending followers, you can use[bold yellow] CTRL + C[bold white] if stuck and[bold red] CTRL + Z[bold white] if you want to stop,\nif an error occurs check the service and account!", width=59, style="bold bright_black", title="[bold bright_black][NOTE]"))
@@ -185,7 +185,7 @@ class MAIN:
                                     BAD.append(f'{HOST}')
                                     CHECKPOINT.append(f'{HOST}')
                                     printf(f"[bold bright_black]   ──>[bold red] UNABLE TO CONNECT TO {str(HOST).split('.')[0].upper()} SERVICE!          ", end='\r')
-                                    time.sleep(0.5)
+                                    time.sleep(5.5)
                                     continue
                             if len(CHECKPOINT) >= 5:
                                 printf(Panel(f"[bold red]Your Instagram account is hit by a checkpoint, please approve the login on another\ndevice, then try logging in again on this Program!", width=59, style="bold bright_black", title="[bold bright_black][Login Checkpoint]"))
@@ -249,8 +249,8 @@ class MAIN:
         self.TOTAL = (menit * 60 + detik)
         while (self.TOTAL):
             MENIT, DETIK = divmod(self.TOTAL, 60)
-            printf(f"[bold bright_black]   ──>[bold green] @{str(your_username)[:20].upper()}[bold white]/[bold green]{MENIT:0.5d}:{DETIK:0.5d}[bold white] SUKSES:-[bold green]{len(SUCCESS)}[bold white] GAGAL:-[bold red]{len(GAGAL)}     ", end='\r')
-            time.sleep(.5)
+            printf(f"[bold bright_black]   ──>[bold green] @{str(your_username)[:20].upper()}[bold white]/[bold green]{MENIT:02d}:{DETIK:02d}[bold white] SUCCESS:-[bold green]{len(SUKSE)}[bold white] FAILED:-[bold red]{len(GAGAL)}     ", end='\r')
+            time.sleep(1)
             self.TOTAL -= 1
         return (True)
 
