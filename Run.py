@@ -242,7 +242,7 @@ class MAIN:
   | | |  _ \ /___)  _)/ _  | || || |/ _ \ / || |/ _  |
  _| |_| | | |___ | |_( ( | | || || | |_| ( (_| ( ( | |
 [bold white](_____)_| |_(___/ \___)_||_|_||_||_|\___/ \____|\_||_|
-        [underline green]Free Instagram Followers - by Rozhak""", width=59, style="bold bright_black"))
+        [underline green]Free Instagram Followers - by Gueverro""", width=59, style="bold bright_black"))
         return (True)
 
     def DELAY(self, menit, detik, your_username):
