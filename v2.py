@@ -175,7 +175,7 @@ class MAIN:
                         try:
                             INFORMASI().PENGIKUT(your_username=self.YOUR_USERNAME, updated=True)
                             CHECKPOINT.clear();BAD.clear();FAILED.clear()
-                            for HOST in ['instamoda.org', 'takipcitime.com', 'takipcikrali.com', 'bigtakip.net', 'takipcimx.net', 'fastfollow.in','anatakip.com', 'bayitakipci.com', 'takipcisatinal.com.tr', 'takipmax.com', 'takipgo.com', 'takipcizen.com', 'sosyora.com.tr', 'takipcikutusu.com', 'takipcibase.com', 'takipcigir.com', 'platintakipci.com', 'Instahile.co', 'Seritakipci.com', 
+                            for HOST in ['instamoda.org', 'takipcitime.com', 'takipcikrali.com', 'bigtakip.net', 'takipcimx.net', 'fastfollow.in','anatakip.com', 'bayitakipci.com', 'takipcisatinal.com.tr', 'takipmax.com', 'takipgo.com', 'takipcizen.com', 'sosyora.com.tr', 'takipcikutusu.com', 'takipcibase.com', 'takipcigir.com', 'platintakipci.com', 'Instahile.co', 'Seritakipci.com']:
                                 try:
                                     with requests.Session() as session:
                                         KIRIMKAN().PENGIKUT(session, self.USERNAME, self.PASSWORD, HOST, self.YOUR_USERNAME)
